@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories("br.com.fiap.usuarios.repository")
+@EnableJpaRepositories("br.com.fiap.controlecoleta")
 public class ConfigJPA {
 
 }

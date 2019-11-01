@@ -1,4 +1,4 @@
-package br.com.fiap.controlecoleta.repository;
+package br.com.fiap.controlecoleta.repository.collect;
 
 import br.com.fiap.controlecoleta.entity.Collect;
 import br.com.fiap.controlecoleta.entity.vo.CollectVo;
@@ -16,7 +16,7 @@ public class CollectCustomRespositoryImpl implements CollectCustomRepository {
   private EntityManager entityManager;
 
   @Override
-  public List<CollectVo> findActiveCollects(String cpFCnpj) {
+  public List<CollectVo> findActiveCollectsByCpfCnpj(String cpFCnpj) {
     Map<String, Object> params =  new HashMap<>();
     StringBuilder sb = new StringBuilder();
     sb.append("SELECT ");
