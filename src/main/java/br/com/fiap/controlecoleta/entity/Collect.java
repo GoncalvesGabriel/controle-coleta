@@ -5,6 +5,7 @@ import br.com.fiap.controlecoleta.entity.converters.CollectStatusConverter;
 import br.com.fiap.controlecoleta.entity.converters.RangeTimeConverter;
 import br.com.fiap.controlecoleta.entity.enumx.CollectStatus;
 import br.com.fiap.controlecoleta.entity.enumx.RangeTime;
+import br.com.fiap.controlecoleta.entity.enumx.TypeMovement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
@@ -56,4 +57,23 @@ public @Data class Collect {
   @Column(name = "STATUS")
   @Convert(converter = CollectStatusConverter.class)
   private CollectStatus status;
+
+  public void toCollect() {
+    this.setStatus(CollectStatus.COLLECTED);
+    this.financialMovement = new FinancialMovement();
+    financialMovement.setCollect(this);
+    financialMovement.setCpfCnpj(this.getCpfCnpj());
+    financialMovement.setDateTime(LocalDateTime.now());
+    financialMovement.setType(TypeMovement.INPUT);
+    financialMovement.setValue(0.0);
+  }
+
+  public void toFinish(Double value){
+    this.setStatus(CollectStatus.FINISHED);
+    this.getFinancialMovement().setValue(value);
+  }
+
+  public void toCancel() {
+    this.setStatus(CollectStatus.CANCELED);
+  }
 }

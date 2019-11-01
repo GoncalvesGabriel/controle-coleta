@@ -10,7 +10,9 @@ public enum CollectStatus {
 
   COLLECTED(2, "Coletada"),
 
-  FINISH(3, "Finalizada");
+  FINISHED(3, "Finalizada"),
+
+  CANCELED(4, "Cancelada");
 
   @Getter
   private final Integer id;
