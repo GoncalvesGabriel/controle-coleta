@@ -2,6 +2,8 @@ package br.com.fiap.controlecoleta.service;
 
 import br.com.fiap.controlecoleta.entity.FinancialMovement;
 import br.com.fiap.controlecoleta.entity.enumx.TypeMovement;
+import br.com.fiap.controlecoleta.provider.IntegrationAction;
+import br.com.fiap.controlecoleta.provider.IntegrationProvider;
 import br.com.fiap.controlecoleta.repository.financialmovement.FinancialMovementRepository;
 import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,10 @@ import org.springframework.stereotype.Service;
 public class FinancialMovementService {
 
   @Autowired
-  private FinancialMovementRepository repossitory;
+  private FinancialMovementRepository repository;
+
+  @Autowired
+  private IntegrationProvider integrationProvider;
 
   public void rescue(Double value, String cpfCnpj) {
     FinancialMovement movement = new FinancialMovement();
@@ -19,6 +24,11 @@ public class FinancialMovementService {
     movement.setDateTime(LocalDateTime.now());
     movement.setCpfCnpj(cpfCnpj);
     movement.setValue(value);
-    repossitory.save(movement);
+    repository.save(movement);
+    integrationProvider.getSender(IntegrationAction.MOVEMENT_UPDATE).send(cpfCnpj.getBytes());
+  }
+
+  public Double getBalance(String cpfCnpj) {
+    return repository.getBalance(cpfCnpj);
   }
 }

@@ -3,6 +3,8 @@ package br.com.fiap.controlecoleta.service;
 import br.com.fiap.controlecoleta.entity.Collect;
 import br.com.fiap.controlecoleta.entity.enumx.CollectStatus;
 import br.com.fiap.controlecoleta.entity.vo.CollectVo;
+import br.com.fiap.controlecoleta.provider.IntegrationAction;
+import br.com.fiap.controlecoleta.provider.IntegrationProvider;
 import br.com.fiap.controlecoleta.repository.collect.CollectRepository;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +16,9 @@ public class CollectService {
 
   @Autowired
   private CollectRepository repository;
+
+  @Autowired
+  private IntegrationProvider integrationProvider;
 
   public Collect registreCollect(CollectVo collectVo) {
     Collect collect = new Collect();
@@ -61,6 +66,8 @@ public class CollectService {
       Collect collect = collectOp.get();
       collect.toFinish(value);
       repository.save(collect);
+      byte[] message = collect.getCpfCnpj().getBytes();
+      integrationProvider.getSender(IntegrationAction.MOVEMENT_UPDATE).send(message);
       return true;
     } else {
       return false;

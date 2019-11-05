@@ -34,7 +34,7 @@ public @Data class FinancialMovement {
   private LocalDateTime dateTime;
 
   @NotNull
-  @Column(name = "TYPE", nullable = false)
+  @Column(name = "MOVEMENT_TYPE", nullable = false)
   @Convert(converter = TypeMovementConverter.class)
   private TypeMovement type;
 

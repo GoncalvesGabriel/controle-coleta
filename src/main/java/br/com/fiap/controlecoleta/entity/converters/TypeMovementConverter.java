@@ -7,7 +7,7 @@ public class TypeMovementConverter implements AttributeConverter<TypeMovement, I
 
   @Override
   public Integer convertToDatabaseColumn(TypeMovement typeMovement) {
-    if (typeMovement != null) {
+    if (typeMovement == null) {
       return null;
     }
     return typeMovement.getId();
