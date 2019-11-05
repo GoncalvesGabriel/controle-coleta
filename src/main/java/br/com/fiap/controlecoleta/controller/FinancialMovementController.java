@@ -4,6 +4,7 @@ import br.com.fiap.controlecoleta.service.FinancialMovementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ public class FinancialMovementController {
   }
 
   @GetMapping(value = "/balance/{cpfCnpj}")
-  public ResponseEntity<Double> getBalance(String cpfCnpj) {
+  public ResponseEntity<Double> getBalance(@PathVariable("cpfCnpj") String cpfCnpj) {
     Double balance = service.getBalance(cpfCnpj);
     return ResponseEntity.ok(balance);
   }
