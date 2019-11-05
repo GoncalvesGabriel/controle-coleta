@@ -2,6 +2,7 @@ package br.com.fiap.controlecoleta.repository.financialmovement;
 
 import br.com.fiap.controlecoleta.entity.FinancialMovement;
 import br.com.fiap.controlecoleta.util.QueryBuilder;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.EntityManager;
@@ -25,6 +26,7 @@ public class FinancialMovementCustomRepositoryImpl implements FinancialMovementC
     Query query = entityManager.createQuery(sb.toString());
     QueryBuilder.bindParameters(query, params);
 
-    return (Double) query.getSingleResult();
+    Double balance = (Double) query.getSingleResult();
+    return balance != null ? balance : Double.valueOf("0");
   }
 }
