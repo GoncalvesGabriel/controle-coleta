@@ -6,6 +6,7 @@ import br.com.fiap.controlecoleta.entity.vo.CollectVo;
 import br.com.fiap.controlecoleta.provider.IntegrationAction;
 import br.com.fiap.controlecoleta.provider.IntegrationProvider;
 import br.com.fiap.controlecoleta.repository.collect.CollectRepository;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CollectService {
     Collect collect = new Collect();
     collect.setCpfCnpj(collectVo.getCpfCnpj());
     collect.setAdress(collectVo.getAdress());
-    collect.setCollectDate(collectVo.getCollectDate());
+    collect.setCollectDate(LocalDateTime.now());
     collect.setFastCollect(collectVo.isFastCollect());
     collect.setScheduledDate(collectVo.getScheduledDate());
     collect.setTimeRange(collectVo.getTimeRange());
