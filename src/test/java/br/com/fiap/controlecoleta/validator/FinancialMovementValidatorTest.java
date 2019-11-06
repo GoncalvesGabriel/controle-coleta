@@ -83,9 +83,7 @@ public class FinancialMovementValidatorTest {
     financialMovement.setCpfCnpj("02755409100");
     financialMovement.setType(TypeMovement.OUTFLOW);
     double valueAbs = Math.abs(value);
-    String message = String
-        .format("Valor do resgate (R$ %s) é menor que valor de disponível R$ %s para saque ",
-            valueAbs, balance);
+    String message = String.format("Valor do resgate (R$ %s) é menor que valor de disponível R$ %s para saque ", valueAbs, balance);
 
     expectedException.expectMessage(message);
 
