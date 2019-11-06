@@ -15,7 +15,21 @@ public class FinancialMovementValidator implements Validator<FinancialMovement> 
   @Override
   public void validateInsert(FinancialMovement entity) {
     if (TypeMovement.OUTFLOW.equals(entity.getType())) {
-      validateAvaliableBalance(entity);
+      outflowValidate(entity);
+    } else {
+      inputValidate(entity);
+    }
+  }
+
+  private void outflowValidate(FinancialMovement entity) {
+    validateAvaliableBalance(entity);
+    double value = entity.getValue() * -1;
+    validateValue(value);
+  }
+
+  private void validateValue(double value) {
+    if (value < 0) {
+      throw new RuntimeException("Valor inválido para a operação");
     }
   }
 
@@ -24,7 +38,12 @@ public class FinancialMovementValidator implements Validator<FinancialMovement> 
     Double operationValue = Math.abs(entity.getValue());
     if (balance.compareTo(operationValue) < 0) {
       throw new RuntimeException(String
-          .format("Valor do resgate (R$ %s) é menor que valor de disponível R$ %s para saque ", operationValue, balance));
+          .format("Valor do resgate (R$ %s) é menor que valor de disponível R$ %s para saque ",
+              operationValue, balance));
     }
+  }
+
+  private void inputValidate(FinancialMovement entity) {
+    validateValue(entity.getValue());
   }
 }
