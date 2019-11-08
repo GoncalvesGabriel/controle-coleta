@@ -21,15 +21,15 @@ public class CollectService {
   @Autowired
   private IntegrationProvider integrationProvider;
 
-  public Collect registreCollect(CollectVo collectVo) {
+  public Collect registerCollect(CollectVo collectVo) {
     Collect collect = new Collect();
     collect.setCpfCnpj(collectVo.getCpfCnpj());
-    collect.setAdress(collectVo.getAdress());
+    collect.setAddress(collectVo.getAddress());
     collect.setCollectDate(LocalDateTime.now());
     collect.setFastCollect(collectVo.isFastCollect());
     collect.setScheduledDate(collectVo.getScheduledDate());
     collect.setTimeRange(collectVo.getTimeRange());
-    collect.setStatus(CollectStatus.SCHEDULE);
+    collect.setStatus(CollectStatus.SCHEDULED);
     return repository.save(collect);
   }
 

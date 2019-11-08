@@ -23,7 +23,7 @@ public class CollectCustomRespositoryImpl implements CollectCustomRepository {
     sb.append(" ctl.id as id, ");
     sb.append(" ctl.cpfCnpj as cpfCnpj, ");
     sb.append(" ctl.fastCollect as fastCollect, ");
-    sb.append(" ctl.adress as adress, ");
+    sb.append(" ctl.address as address, ");
     sb.append(" ctl.scheduledDate as scheduledDate, ");
     sb.append(" ctl.collectDate as collectDate, ");
     sb.append(" ctl.timeRange as timeRange, ");

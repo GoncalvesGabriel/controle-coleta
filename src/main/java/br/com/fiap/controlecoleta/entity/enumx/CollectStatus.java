@@ -6,7 +6,7 @@ import lombok.ToString;
 @ToString(of = "status")
 public enum CollectStatus {
 
-  SCHEDULE(1, "Agendada"),
+  SCHEDULED(1, "Agendada"),
 
   COLLECTED(2, "Coletada"),
 

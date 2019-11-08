@@ -2,9 +2,9 @@ package br.com.fiap.controlecoleta.entity;
 
 
 import br.com.fiap.controlecoleta.entity.converters.CollectStatusConverter;
-import br.com.fiap.controlecoleta.entity.converters.RangeTimeConverter;
+import br.com.fiap.controlecoleta.entity.converters.TimeRangeConverter;
 import br.com.fiap.controlecoleta.entity.enumx.CollectStatus;
-import br.com.fiap.controlecoleta.entity.enumx.RangeTime;
+import br.com.fiap.controlecoleta.entity.enumx.TimeRange;
 import br.com.fiap.controlecoleta.entity.enumx.TypeMovement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,12 +18,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateTimeConverter;
 
 
 @Entity
 @Table( name = "COLLECT")
+@NoArgsConstructor
 public @Data class Collect {
 
   @Id
@@ -37,8 +40,8 @@ public @Data class Collect {
   @Column(name =  "COLLECT_FAST")
   private boolean fastCollect;
 
-  @Column(name = "ADRESS")
-  private String adress;
+  @Column(name = "ADDRESS")
+  private String address;
 
   @Column(name = "SCHEDULED_DATE")
   private LocalDate scheduledDate;
@@ -51,8 +54,8 @@ public @Data class Collect {
   private FinancialMovement financialMovement;
 
   @Column(name = "TIME_RANGE")
-  @Convert(converter = RangeTimeConverter.class)
-  private RangeTime timeRange;
+  @Convert(converter = TimeRangeConverter.class)
+  private TimeRange timeRange;
 
   @Column(name = "STATUS")
   @Convert(converter = CollectStatusConverter.class)
@@ -76,4 +79,27 @@ public @Data class Collect {
   public void toCancel() {
     this.setStatus(CollectStatus.CANCELED);
   }
+
+  @Builder
+  private Collect(
+      Long id,
+      String cpfCnpj,
+      boolean fastCollect,
+      String address,
+      LocalDate scheduledDate,
+      LocalDateTime collectDate,
+      FinancialMovement financialMovement,
+      TimeRange timeRange,
+      CollectStatus status) {
+    this.id = id;
+    this.cpfCnpj = cpfCnpj;
+    this.fastCollect = fastCollect;
+    this.address = address;
+    this.scheduledDate = scheduledDate;
+    this.collectDate = collectDate;
+    this.financialMovement = financialMovement;
+    this.timeRange = timeRange;
+    this.status = status;
+  }
+
 }
