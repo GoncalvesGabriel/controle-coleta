@@ -40,7 +40,7 @@ public class CollectController {
   @ApiOperation(value = "Lista as coletas ativas para o CPF/CNPJ", consumes = "application/json", httpMethod = "GET")
   @ApiResponse(code = 200, message = "Lista obtida com sucesso")
   @GetMapping(value = "/activeCollect")
-  public ResponseEntity<List<CollectVo>> getActiveCollect(@ApiParam(value = "CPF/CNPJ do usuário") String cpfCnpj) {
+  public ResponseEntity<List<CollectVo>> getActiveCollect(String cpfCnpj) {
     List<CollectVo> collectVoList = service.getActiveCollects(cpfCnpj);
     return ResponseEntity.status(HttpStatus.OK).body(collectVoList);
   }
@@ -52,7 +52,7 @@ public class CollectController {
   }
   )
   @DeleteMapping(value = "/cancel")
-  public ResponseEntity cancelCollect(@ApiParam(value = "ID da coleta") Long collectId) {
+  public ResponseEntity cancelCollect(Long collectId) {
     if (service.cancelCollect(collectId)) {
       return ResponseEntity.ok().build();
     }
@@ -66,7 +66,7 @@ public class CollectController {
   }
   )
   @PostMapping(value = "/toCollect")
-  public ResponseEntity toCollect(@ApiParam(value = "ID da coleta") Long collectId) {
+  public ResponseEntity toCollect(Long collectId) {
     if (service.toCollect(collectId)) {
       return ResponseEntity.ok().build();
     }
@@ -81,8 +81,8 @@ public class CollectController {
   )
   @PostMapping(value = "/toFinish")
   public ResponseEntity toFinish(
-      @ApiParam(value = "ID da coleta") Long collectId,
-      @ApiParam(value = "Valor remunerado ao usuário referente à coleta") Double value) {
+      @ApiParam(name = "collectId", value = "ID da coleta") Long collectId,
+      @ApiParam(name = "value", value = "Valor remunerado ao usuário referente à coleta") Double value) {
     if (service.toFinish(collectId, value)) {
       return ResponseEntity.ok().build();
     }

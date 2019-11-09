@@ -33,9 +33,10 @@ public @Data class CollectVo {
 
   private Long financialMovementId;
 
-  @ApiModelProperty(value = "Intervalo de horário", example = "\"MORNING ou AFTERNOON ou NIGHT\"")
+  @ApiModelProperty(value = "Intervalo de horário", example = "\"MORNING\"")
   private TimeRange timeRange;
 
+  @ApiModelProperty(value = "Status da coleta", example = "\"SCHEDULED\"")
   private CollectStatus status;
 
   @Builder

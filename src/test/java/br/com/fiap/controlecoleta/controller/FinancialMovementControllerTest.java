@@ -2,6 +2,8 @@ package br.com.fiap.controlecoleta.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import br.com.fiap.controlecoleta.service.FinancialMovementService;
 import org.junit.Test;
@@ -41,13 +43,9 @@ public class FinancialMovementControllerTest {
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
-    //@Test
+    @Test
     public void getBalance() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-            "/balance/{cpfCnpj}").accept(
-            MediaType.APPLICATION_JSON).param("cpfCnpj","12345678911");
-
-        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        MvcResult result = mockMvc.perform(get("/financialMovement/balance/{cpfCnpj}", "12345678911")).andReturn();
         verify(this.service).getBalance("12345678911");
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
