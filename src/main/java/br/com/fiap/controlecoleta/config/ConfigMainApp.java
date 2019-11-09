@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan("br.com.fiap.usuarios")
+@ComponentScan("br.com.fiap.controlecoleta")
 public class ConfigMainApp implements WebMvcConfigurer {
 
     @Override

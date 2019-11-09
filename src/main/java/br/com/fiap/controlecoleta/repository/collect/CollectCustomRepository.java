@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface CollectCustomRepository {
 
-  List<CollectVo> findActiveCollectsByCpfCnpj(String cpFCnpj);
+  List<CollectVo> findActiveCollectsByCpfCnpj(String cpfCnpj);
 
 }

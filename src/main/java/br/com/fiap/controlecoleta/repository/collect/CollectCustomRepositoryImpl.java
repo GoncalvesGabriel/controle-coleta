@@ -8,16 +8,19 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
+import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.springframework.stereotype.Component;
 
-public class CollectCustomRespositoryImpl implements CollectCustomRepository {
+public class CollectCustomRepositoryImpl implements CollectCustomRepository {
 
   @PersistenceContext
   private EntityManager entityManager;
 
   @Override
-  public List<CollectVo> findActiveCollectsByCpfCnpj(String cpFCnpj) {
+  public List<CollectVo> findActiveCollectsByCpfCnpj(String cpfCnpj) {
     Map<String, Object> params =  new HashMap<>();
     StringBuilder sb = new StringBuilder();
     sb.append("SELECT ");
@@ -31,15 +34,15 @@ public class CollectCustomRespositoryImpl implements CollectCustomRepository {
     sb.append(" ctl.status as status, ");
     sb.append(" finMov.id as financialMovementId ");
     sb.append(" FROM ");
-    sb.append(Collect.class.getCanonicalName());
-    sb.append(" as clt ");
+    sb.append(" Collect clt ");
     sb.append(" LEFT JOIN clt.financialMovement finMov ");
     sb.append(" WHERE ");
     sb.append(" ctl.cpfCnpj = :cpfCnpj ");
 
-    params.put("cpfCnpj", cpFCnpj);
+    params.put("cpfCnpj", cpfCnpj);
 
-    TypedQuery<CollectVo> execQuery = entityManager.createQuery(sb.toString(), CollectVo.class);
+    Query execQuery = entityManager.createQuery(sb.toString());
+    execQuery.unwrap(org.hibernate.query.Query.class).setResultTransformer(new AliasToBeanResultTransformer(CollectVo.class));
     QueryBuilder.bindParameters(execQuery, params);
 
     return execQuery.getResultList();
