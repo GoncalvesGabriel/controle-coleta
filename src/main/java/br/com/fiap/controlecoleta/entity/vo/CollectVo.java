@@ -2,6 +2,7 @@ package br.com.fiap.controlecoleta.entity.vo;
 
 import br.com.fiap.controlecoleta.entity.enumx.CollectStatus;
 import br.com.fiap.controlecoleta.entity.enumx.TimeRange;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @NoArgsConstructor
 @ApiModel(value = "Collect", description = "Representa os dados de uma coleta")
@@ -26,6 +28,8 @@ public @Data class CollectVo {
   @ApiModelProperty(value = "Endereço", example = "\"Rua celso afonso, 552\"")
   private String address;
 
+  @JsonFormat(pattern="yyyy-MM-dd")
+  @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
   @ApiModelProperty(value = "Data agendada", example = "\"YYYY-MM-DD\"")
   private LocalDate scheduledDate;
 

@@ -24,22 +24,21 @@ public class CollectCustomRepositoryImpl implements CollectCustomRepository {
     Map<String, Object> params =  new HashMap<>();
     StringBuilder sb = new StringBuilder();
     sb.append("SELECT ");
-    sb.append(" ctl.id as id, ");
-    sb.append(" ctl.cpfCnpj as cpfCnpj, ");
-    sb.append(" ctl.fastCollect as fastCollect, ");
-    sb.append(" ctl.address as address, ");
-    sb.append(" ctl.scheduledDate as scheduledDate, ");
-    sb.append(" ctl.collectDate as collectDate, ");
-    sb.append(" ctl.timeRange as timeRange, ");
-    sb.append(" ctl.status as status, ");
-    sb.append(" finMov.id as financialMovementId ");
+    sb.append(" clt.id AS id, ");
+    sb.append(" clt.cpfCnpj AS cpfCnpj, ");
+    sb.append(" clt.fastCollect AS fastCollect, ");
+    sb.append(" clt.address AS address, ");
+    sb.append(" clt.scheduledDate AS scheduledDate, ");
+    sb.append(" clt.collectDate AS collectDate, ");
+    sb.append(" clt.timeRange AS timeRange, ");
+    sb.append(" clt.status AS status, ");
+    sb.append(" finMov.id AS financialMovementId ");
     sb.append(" FROM ");
-    sb.append(" Collect clt ");
+    sb.append(Collect.class.getCanonicalName()).append(" AS clt ");
     sb.append(" LEFT JOIN clt.financialMovement finMov ");
     sb.append(" WHERE ");
-    sb.append(" ctl.cpfCnpj = :cpfCnpj ");
+    sb.append(" clt.cpfCnpj = :cpfCnpj ");
 
-    params.put("cpfCnpj", cpfCnpj);
 
     Query execQuery = entityManager.createQuery(sb.toString());
     execQuery.unwrap(org.hibernate.query.Query.class).setResultTransformer(new AliasToBeanResultTransformer(CollectVo.class));
