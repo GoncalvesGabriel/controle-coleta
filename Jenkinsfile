@@ -1,15 +1,15 @@
 pipeline {
   agent any
+  
+  environment {
+    PATH = "/opt/maven/bin:$PATH"
+  }
+  
   stages {
     stage('Build') {
       steps {
-        sh '''mvn clean install -Dlicense.skip=true
-'''
+        sh "mvn clean install -Dlicense.skip=true"
       }
     }
-
-  }
-  environment {
-    PATH = '"/opt/maven/bin:$PATH"'
   }
 }
