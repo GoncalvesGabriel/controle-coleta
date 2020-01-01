@@ -1,16 +1,22 @@
 pipeline {
   agent any
-  
-  environment {
-    JAVA_HOME="/opt/jdk1.8.0_231/"
-    PATH = "/opt/apache-maven-3.6.3/bin:$PATH"
-  }
-  
   stages {
-    stage('Build') {
+    stage('Build project') {
       steps {
-        sh "mvn clean install"
+        sh 'mvn clean install'
       }
     }
+
+    stage('Build docker image') {
+      steps {
+        sh 'docker image prune'
+        sh 'docker build -t goncalvesgabrielsilva/controle-coleta:1.0 docker/'
+      }
+    }
+
+  }
+  environment {
+    JAVA_HOME = '/opt/jdk1.8.0_231/'
+    PATH = "/opt/apache-maven-3.6.3/bin:$PATH"
   }
 }
