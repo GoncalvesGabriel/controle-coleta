@@ -9,6 +9,7 @@ pipeline {
 
     stage('Build docker image') {
       steps {
+        sh 'echo $USER'
         sh 'docker image prune'
         sh 'docker build -t goncalvesgabrielsilva/controle-coleta:1.0 docker/'
       }
