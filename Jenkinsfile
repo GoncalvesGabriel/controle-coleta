@@ -3,7 +3,7 @@ pipeline {
   
   environment {
     JAVA_HOME="/opt/jdk1.8.0_231/"
-    PATH = "/opt/maven/bin:$PATH"
+    PATH = "/opt/apache-maven-3.6.3/bin:$PATH"
   }
   
   stages {
