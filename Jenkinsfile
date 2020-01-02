@@ -15,9 +15,11 @@ pipeline {
       }
     }
 
-    stage('Deploy aplicação') {
+    stage('Deploy App') {
       steps {
-        sh 'docker start goncalvesgabrielsilva/controle-coleta:1.0'
+        sh 'docker container prune -f -a'
+        sh 'docker image prune -f -a '
+        sh 'docker run goncalvesgabrielsilva/controle-coleta:1.0 aplicacao'
       }
     }
 
