@@ -19,7 +19,7 @@ pipeline {
         sh '''
 docker container stop $(docker container ls -aq)'''
         sh 'docker container prune -f'
-        sh 'docker run goncalvesgabrielsilva/controle-coleta:1.0 aplicacao > log.txt &'
+        sh 'docker run -p 8081:8081 goncalvesgabrielsilva/controle-coleta:1.0 aplicacao > log.txt &'
       }
     }
 
