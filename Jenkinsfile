@@ -10,12 +10,12 @@ pipeline {
     stage('Build docker image') {
       steps {
         sh 'echo $USER'
-        sh 'docker image prune'
+        sh 'docker image prune -f'
         sh 'docker build -t goncalvesgabrielsilva/controle-coleta:1.0 docker/'
       }
     }
 
-    stage('Deploy aplicação') {
+    stage('Deploy aplicaÃ§Ã£o') {
       steps {
         sh 'docker start goncalvesgabrielsilva/controle-coleta:1.0'
       }
