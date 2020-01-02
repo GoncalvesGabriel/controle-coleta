@@ -9,16 +9,16 @@ pipeline {
 
     stage('Build docker image') {
       steps {
-        sh 'echo $USER'
-        sh 'docker image prune -f'
+        sh 'docker image prune -f -a'
         sh 'docker build -t goncalvesgabrielsilva/controle-coleta:1.0 docker/'
       }
     }
 
     stage('Deploy App') {
       steps {
-        sh 'docker container prune -f -a'
-        sh 'docker image prune -f -a '
+        sh '''
+docker container stop $(docker container ls -aq)'''
+        sh 'docker container prune -f'
         sh 'docker run goncalvesgabrielsilva/controle-coleta:1.0 aplicacao'
       }
     }
