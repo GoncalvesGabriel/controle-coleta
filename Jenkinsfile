@@ -15,6 +15,12 @@ pipeline {
       }
     }
 
+    stage('Deploy aplicação') {
+      steps {
+        sh 'docker start goncalvesgabrielsilva/controle-coleta:1.0'
+      }
+    }
+
   }
   environment {
     JAVA_HOME = '/opt/jdk1.8.0_231/'
